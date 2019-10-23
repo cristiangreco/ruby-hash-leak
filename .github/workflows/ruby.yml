@@ -1,0 +1,21 @@
+name: Ruby
+
+on: [push]
+
+jobs:
+  test:
+    name: Test on ruby ${{ matrix.ruby }} and ${{ matrix.os }}
+    strategy:
+      matrix:
+        ruby: ["2.6.x", "2.5.x", "2.4.x"]
+        os: [ubuntu-18.04, macOS-10.14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up ruby ${{ matrix.ruby }}
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Test
+        run: |
+          ruby test.rb && ruby test.rb && ruby test.rb
